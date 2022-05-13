@@ -1,0 +1,42 @@
+version: "2"
+
+networks:
+  xtbfront-net:
+    driver: bridge
+
+services:
+  xtbfront-api:
+    build:
+      context: ./back/xtbfront
+      dockerfile: Dockerfile
+    restart: always
+    container_name: xtbfront-api
+    ports:
+      - 4000:4000
+    env_file: .xtbfront-api.env
+    networks:
+      - xtbfront-net
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST_API}
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST_API}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      VIRTUAL_PORT: 4000
+
+  xtbfront-web:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    restart: always
+    container_name: xtbfront-web
+    ports:
+      - 8000:80
+    volumes:
+      - ./front/public/config.env.js:/usr/share/nginx/html/config.env.js
+    env_file: .xtbfront-web.env
+    networks:
+      - xtbfront-net
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST_WEB}
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST_WEB}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      VIRTUAL_PORT: 8000
