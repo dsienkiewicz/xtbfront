@@ -78,7 +78,6 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN mkdir /app
 WORKDIR "/app"
 RUN chown nobody /app
 
@@ -89,5 +88,6 @@ ENV MIX_ENV="prod"
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/xtbfront ./
 
 USER nobody
+RUN chmod=+x /app/bin/server
 
 CMD ["/app/bin/server"]
