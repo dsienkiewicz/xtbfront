@@ -29,6 +29,10 @@ npm install
 npm run dev
 ```
 
+After running front-end and back-end parts, they should be available at 
+http://localhost:8000 for the front-end and
+http://localhost:4000/api for the back-end part.
+
 ## Docker
 
 It is also possible to run the application as Docker containers with `docker-compose`.
