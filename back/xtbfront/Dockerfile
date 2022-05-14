@@ -79,14 +79,14 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 WORKDIR "/app"
-RUN chown nobody /app
+RUN chown nobody:nogroup /app
 
 # set runner ENV
 ENV MIX_ENV="prod"
 
 # Only copy the final release from the build stage
-COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/xtbfront ./
+COPY --from=builder --chown=nobody:nogroup /app/_build/${MIX_ENV}/rel/xtbfront ./
 
-USER nobody
+USER nobody:nogroup
 
 CMD ["/app/bin/server"]
