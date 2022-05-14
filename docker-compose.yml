@@ -11,6 +11,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: xtbfront-api
+    expose:
+      - "4000"
     ports:
       - 4000:4000
     env_file: .xtbfront-api.env
@@ -28,6 +30,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: xtbfront-web
+    expose:
+      - "80"
     ports:
       - 8000:80
     volumes:
